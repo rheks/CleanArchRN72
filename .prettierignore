@@ -1,0 +1,17 @@
+dist
+.bundle
+__tests__
+node_modules
+android
+ios
+.eslintrc.js
+.gitignore
+.watchmanconfig
+app.json
+babel.config.js
+Gemfile
+jest.config.js
+metro.config.js
+package-lock.json
+package.json
+README.md
