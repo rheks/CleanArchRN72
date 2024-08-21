@@ -1,22 +1,23 @@
+import { CustomTheme } from "@presentation/assets/styles/GlobalStyle";
+import { appLinking, navigationRef } from "@presentation/navigation/NavGuard";
 import { NavigationObject } from "@presentation/navigation/NavObject";
-import LoginScreen from "@presentation/screen/login/LoginScreen";
-import { NavigationContainer } from "@react-navigation/native";
+import { DarkTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { useColorScheme } from "react-native";
 
 const Stack = createNativeStackNavigator();
 
 const NavigationComponent = () => {
+    const scheme = useColorScheme(); // use operating system preferences theme
+    console.log("scheme os : ", scheme)
+
     return (
         <NavigationContainer
-            // initialState={() => { return console.log(""); }}
+            ref={navigationRef}
             onReady={() => { console.log("nav ready ") }}
-            // onStateChange={(state) => { console.log("state change : ", state) }}
-            // theme
-            // linking
-            // fallback
-            // documentTitle
-            // children
-            // ref
+            onStateChange={(state) => { console.log("state change : ", state) }}
+            theme={scheme === 'dark' ? DarkTheme : CustomTheme}
+            linking={appLinking}
         >
             <Stack.Navigator initialRouteName={NavigationObject.login.routeName}>
                 {
