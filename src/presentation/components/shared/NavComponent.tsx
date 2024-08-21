@@ -14,10 +14,10 @@ const NavigationComponent = () => {
     return (
         <NavigationContainer
             ref={navigationRef}
+            linking={appLinking}
+            theme={scheme === 'dark' ? DarkTheme : CustomTheme}
             onReady={() => { console.log("nav ready ") }}
             onStateChange={(state) => { console.log("state change : ", state) }}
-            theme={scheme === 'dark' ? DarkTheme : CustomTheme}
-            linking={appLinking}
         >
             <Stack.Navigator initialRouteName={NavigationObject.login.routeName}>
                 {
