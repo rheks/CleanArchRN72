@@ -9,7 +9,7 @@
 			"@presentation/*": ["presentation/*"],
 			"@tests/*": ["tests/*"],
 			"@utils/*": ["utils/*"],
-			"@types/*": ["types/*"],
+			"@types/*": ["types/*"]
 		}
 	}
 }
