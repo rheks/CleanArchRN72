@@ -1,6 +1,6 @@
 export interface LoginState {
 	phone: string;
-	passcode: number;
+	password: string;
 	alertLogin: string;
 	countryPhoneCode: string;
 }

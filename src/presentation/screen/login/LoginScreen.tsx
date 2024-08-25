@@ -1,23 +1,60 @@
 import React, { useState } from "react";
-import { Button, Text, TouchableOpacity, View } from "react-native";
 import { submitLogin } from "@application/redux/actions/LoginAction";
-import { NavigationObject } from "@presentation/navigation/NavObject";
-import { navigationRef } from "@presentation/navigation/NavGuard";
+import { EyeIcon, EyeOffIcon, InputIcon, InputSlot, LockIcon, PhoneIcon, Text, VStack } from "@gluestack-ui/themed";
+import InputComponent from "@presentation/components/common/Input";
+import { useAppDispatch, useAppSelector } from "@application/redux/hook";
+import { setPassword, setPhoneNumber } from "@application/redux/slices/LoginSlice";
 
 export default function LoginScreen(): JSX.Element {
-	const [username, setUsername] = useState("");
-	const [password, setPassword] = useState("");
+    const dispatch = useAppDispatch()
+    const { phone, password, countryPhoneCode } = useAppSelector(state => state.login)
 
-	const handleLogin = () => {
-		submitLogin({ username, password });
-	};
+    const [isShowPassword, setIsShowPassword] = useState(true)
 
-	return (
-		<View>
-			<Text style={{ color: "red" }}>Login Screen</Text>
-			<TouchableOpacity onPress={() => navigationRef.navigate(NavigationObject.home.routeName)}>
-				<Text>Go to Home</Text>
-			</TouchableOpacity>
-		</View>
-	);
+    const handleShowPassword = () => {
+        setIsShowPassword((showState) => { return !showState })
+    }
+
+    const handleLogin = () => {
+        submitLogin({ username: phone, password });
+    };
+
+    return (
+        <VStack style={{ flex: 1, padding: 10, backgroundColor: "transparent" }}>
+            <InputComponent
+                value={phone}
+                textLabel={'Phone'}
+                variant={'outline'}
+                size={'xl'}
+                typeInput={'text-input'}
+                keyboardType={'numeric'}
+                InputFieldPlaceholder={countryPhoneCode}
+                onChangeText={(e) => dispatch(setPhoneNumber(e))}
+                inputIconLeftName={
+                    <InputSlot style={{ borderRightWidth: 1.5, borderRightColor: "#000", paddingRight: 10 }}>
+                        <InputIcon size={"xl"} as={PhoneIcon} color={"#000"} />
+                    </InputSlot>
+                }
+            />
+            <InputComponent
+                value={password}
+                textLabel={'Password'}
+                variant={'outline'}
+                size={'xl'}
+                typeInput={'text-input'}
+                isTextPassword={isShowPassword}
+                onChangeText={(e) => dispatch(setPassword(e))}
+                inputIconLeftName={
+                    <InputSlot style={{ borderRightWidth: 1.5, borderRightColor: "#000", paddingRight: 10 }}>
+                        <InputIcon size={"xl"} as={LockIcon} color={"#000"} />
+                    </InputSlot>
+                }
+                inputIconRightName={
+                    <InputSlot onPress={handleShowPassword}>
+                        <InputIcon size={"xl"} as={isShowPassword ? EyeOffIcon : EyeIcon} color={"#000"} />
+                    </InputSlot>
+                }
+            />
+        </VStack>
+    );
 }
