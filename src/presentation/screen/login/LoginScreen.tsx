@@ -4,6 +4,8 @@ import { EyeIcon, EyeOffIcon, InputIcon, InputSlot, LockIcon, PhoneIcon, Text, V
 import InputComponent from "@presentation/components/common/Input";
 import { useAppDispatch, useAppSelector } from "@application/redux/hook";
 import { setPassword, setPhoneNumber } from "@application/redux/slices/LoginSlice";
+import ButtonComponent from "@presentation/components/common/Button";
+import { AlignCenter, Pencil } from "lucide-react-native";
 
 export default function LoginScreen(): JSX.Element {
     const dispatch = useAppDispatch()
@@ -54,6 +56,16 @@ export default function LoginScreen(): JSX.Element {
                         <InputIcon size={"xl"} as={isShowPassword ? EyeOffIcon : EyeIcon} color={"#000"} />
                     </InputSlot>
                 }
+            />
+
+            <ButtonComponent
+                size={"xl"}
+                textButton={"Login"}
+                // IconButtonLeft={
+                //     <Pencil size={20} color={"#fff"} />
+                // }
+                // styleButtonText={{ width: "100%", textAlign: "center" }}
+                onPress={() => { console.log("duarr login") }}
             />
         </VStack>
     );
